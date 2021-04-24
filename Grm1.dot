@@ -1,0 +1,19 @@
+digraph G{
+rankdir=LR
+A[label="Nombre: AP_Grm1",shape="underline"]
+F[label="Terminales: {a, b, z}",shape="none"]
+B[label="Alfabeto de Pila: {a, b, z, S, A, B, C, # }",shape="none"]
+C[label="Estados: { i, p, q, f }",shape="none"]
+D[label="Estado Inicial: { i }",shape="none"]
+E[label="Estado de Aceptacion: { f }",shape="none"]
+G[label="i",shape="circle"]
+H[label="p",shape="circle"]
+I[label="q",shape="circle"]
+J[label="f",shape="doublecircle"]
+G -> H [label="$, $, #"]
+H -> I [label="$, $, S"]
+I -> J [label="$, #, $"]
+I -> I [label="hola"]
+I -> I [label="world"]
+
+}
