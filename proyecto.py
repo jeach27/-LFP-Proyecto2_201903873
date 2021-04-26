@@ -67,14 +67,6 @@ def grafica(gram):
             Noterminales = gram.NoTerminales[i]
         else:
             Noterminales = Noterminales + ', '+ gram.NoTerminales[i]
-
-    file.write('A[label="Nombre: AP_'+gram.nombre+'",shape="underline"]\n')
-    file.write('F[label="Terminales: {'+terminales+'}",shape="none"]\n')
-    file.write('B[label="Alfabeto de Pila: {'+terminales+', '+Noterminales+', # }",shape="none"]\n')
-    file.write('C[label="Estados: { i, p, q, f }",shape="none"]\n')
-    file.write('D[label="Estado Inicial: { i }",shape="none"]\n')
-    file.write('E[label="Estado de Aceptacion: { f }",shape="none"]\n')
-    
     
     file.write('G[label="i",shape="circle"]\n')
     file.write('H[label="p",shape="circle"]\n')
@@ -83,23 +75,33 @@ def grafica(gram):
     file.write('G -> H [label="$, $, #"]\n')
     file.write('H -> I [label="$, $, '+gram.inicial+'"]\n')
     file.write('I -> J [label="$, #, $"]\n')
-    file.write('I -> I [label="hola"]\n')
-    file.write('I -> I [label="world"]\n')
-    
-    
-    file.write('\n')
+    file.write('I -> I [label=<<TABLE BORDER="0" border = "0" cellborder = "0">\n')
+    for i in range(len(gram.terminales)):
+        file.write('<tr><td>'+gram.terminales[i]+', '+gram.terminales[i]+'; $</td></tr>\n')
+    for i in range(len(gram.producciones)):
+        file.write('<tr><td>$, '+gram.producciones[i][0]+'; '+gram.producciones[i][1]+'</td></tr> \n')
+    file.write('</TABLE>>]\n')
 
-
+    file.write('tabla[shape = plaintext, fontsize = 10, label = <\n')
+    file.write('<TABLE BORDER="0" border = "0" cellborder = "0">\n')
+    file.write('"<tr><td> Terminales :{'+terminales+'}  </td></tr>\n')
+    file.write('<tr><td> Alfabeto de pila: {'+terminales+', '+Noterminales+', # } </td></tr>\n')
+    file.write('<tr><td> Estados: { i , p , q , f }</td></tr>\n')
+    file.write('<tr><td> Estado Inicial: { i } </td></tr>\n')
+    file.write('<tr><td> Estado de aceptacion: { f }</td></tr>\n')
+    file.write('</TABLE>\n')
+    file.write('>];labelloc="t";label="Nombre: AP_'+gram.nombre+'";\n')
+    
     file.write('}')
     file.close()
     os.system('dot -Tpng '+gram.nombre+'.dot -o '+gram.nombre+'.png')
-    os.startfile(gram.nombre+'.png')
+    #os.startfile(gram.nombre+'.png')
 
 def HTML_grafica(gram):
     f = open('AP_Equivalente.html','w')
     f.write('<html>\n')
     f.write('   <head>\n')
-    f.write(' <title>Tabla Simbolos Menu</title>\n')
+    f.write(' <title>AP Equivalente</title>\n')
     f.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>\n')
     f.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">\n')
     f.write('<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>\n')
@@ -108,7 +110,7 @@ def HTML_grafica(gram):
     f.write('   </head>\n')
     f.write('   <body>\n')
     
-    f.write('<h1>hello</h1>')
+    f.write('<img src="'+gram.nombre+'.png">')
     f.write('   </body>\n')
     f.write('</html>\n')
     
@@ -197,8 +199,12 @@ def menu():
                     print(str(i+1)+'. '+gramaticas[i].nombre)
                 gr = int(input('> Ingrese una opcion\n'))
                 gro = gramaticas[gr-1]
+                grafica(gro)
                 HTML_grafica(gro)   
-                grafica(gro)   
+                vuelta = input('> Deseea continuar\n')
+                if vuelta:
+                    pass
+                
             else:
                 print('> No se ha cargado ningun archivo\n')
 

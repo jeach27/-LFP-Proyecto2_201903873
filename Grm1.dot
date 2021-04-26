@@ -1,11 +1,5 @@
 digraph G{
 rankdir=LR
-A[label="Nombre: AP_Grm1",shape="underline"]
-F[label="Terminales: {a, b, z}",shape="none"]
-B[label="Alfabeto de Pila: {a, b, z, S, A, B, C, # }",shape="none"]
-C[label="Estados: { i, p, q, f }",shape="none"]
-D[label="Estado Inicial: { i }",shape="none"]
-E[label="Estado de Aceptacion: { f }",shape="none"]
 G[label="i",shape="circle"]
 H[label="p",shape="circle"]
 I[label="q",shape="circle"]
@@ -13,7 +7,25 @@ J[label="f",shape="doublecircle"]
 G -> H [label="$, $, #"]
 H -> I [label="$, $, S"]
 I -> J [label="$, #, $"]
-I -> I [label="hola"]
-I -> I [label="world"]
-
+I -> I [label=<<TABLE BORDER="0" border = "0" cellborder = "0">
+<tr><td>a, a; $</td></tr>
+<tr><td>b, b; $</td></tr>
+<tr><td>z, z; $</td></tr>
+<tr><td>$, S; A</td></tr> 
+<tr><td>$, A; a A a</td></tr> 
+<tr><td>$, A; B</td></tr> 
+<tr><td>$, B; b B b</td></tr> 
+<tr><td>$, B; C</td></tr> 
+<tr><td>$, C; z C</td></tr> 
+<tr><td>$, C; z</td></tr> 
+</TABLE>>]
+tabla[shape = plaintext, fontsize = 10, label = <
+<TABLE BORDER="0" border = "0" cellborder = "0">
+"<tr><td> Terminales :{a, b, z}  </td></tr>
+<tr><td> Alfabeto de pila: {a, b, z, S, A, B, C, # } </td></tr>
+<tr><td> Estados: { i , p , q , f }</td></tr>
+<tr><td> Estado Inicial: { i } </td></tr>
+<tr><td> Estado de aceptacion: { f }</td></tr>
+</TABLE>
+>];labelloc="t";label="Nombre: AP_Grm1";
 }
